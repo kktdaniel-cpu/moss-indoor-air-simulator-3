@@ -94,27 +94,60 @@
             from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Proposal Paper Style */
+        .proposal-paper {
+            background: white;
+            padding: 40px;
+            min-height: 800px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+            position: relative;
+        }
+        .proposal-paper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #3B82F6, #10B981);
+        }
+
+        /* Print Specific Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #content-proposal, #content-proposal * {
+                visibility: visible;
+            }
+            #content-proposal {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .proposal-paper {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+            }
+            nav, .lg\:col-span-4, .tab-buttons {
+                display: none;
+            }
+        }
     </style>
-    
-    <!-- Application Logic Summary:
-         1. Product Data: Based on "Tree100/Tabio" quotation PPT. 
-            - Moss Tower (Forestay): 1,100,000 KRW
-            - Moss Garden: 3,500,000 KRW
-            - Moss Frame (Small): 39,000 KRW
-         2. Carbon/Air Logic:
-            - Carbon: 72 trays = 10 trees (Source: PPT). 
-              > 1 tray = 0.138 trees.
-              > Tower ~ 5 trays = ~0.7 trees.
-              > Garden ~ 12 trays = ~1.6 trees.
-              > Frame ~ 1 tray = ~0.14 trees.
-            - Air Quality: Estimate coverage area per unit (Tower ~50m2, Frame ~10m2).
-         3. User Flow: Select Space -> Configure Products -> View Analysis -> Generate Proposal.
-    -->
 </head>
 <body class="antialiased">
 
     <!-- Top Navigation -->
-    <nav class="bg-white border-b border-gray-200 fixed w-full z-20 top-0 shadow-sm">
+    <nav class="bg-white border-b border-gray-200 fixed w-full z-20 top-0 shadow-sm no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
@@ -136,7 +169,7 @@
     <div class="pt-20 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
 
         <!-- Left Panel: Configuration (4 Cols) -->
-        <div class="lg:col-span-4 space-y-5">
+        <div class="lg:col-span-4 space-y-5 no-print">
             
             <!-- Step 1: Space Setting -->
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
@@ -259,7 +292,7 @@
         <div class="lg:col-span-8">
             
             <!-- Dashboard Tabs -->
-            <div class="flex space-x-1 bg-gray-100 p-1 rounded-xl mb-6">
+            <div class="tab-buttons flex space-x-1 bg-gray-100 p-1 rounded-xl mb-6 no-print">
                 <button onclick="switchTab('impact')" id="tab-impact" class="flex-1 py-2.5 text-sm font-bold rounded-lg shadow bg-white text-blue-700 transition">
                     <i class="fa-solid fa-lungs mr-2"></i>공기질 개선 효과
                 </button>
@@ -426,40 +459,125 @@
                 </div>
             </div>
 
-            <!-- Tab 3: Proposal -->
+            <!-- Tab 3: Proposal (Enhanced) -->
             <div id="content-proposal" class="tab-content space-y-6">
-                <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
-                    <h3 class="font-bold text-gray-800 mb-2">제안 메시지 생성 완료</h3>
-                    <p class="text-sm text-gray-600 mb-4">
-                        아래 내용을 복사하여 기안문, 이메일, 또는 제안서 PPT에 활용하세요.
-                    </p>
-                    <textarea id="proposalText" class="w-full h-64 p-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 font-mono" readonly></textarea>
-                    <div class="mt-4 flex justify-end">
-                        <button onclick="copyProposal()" class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2 px-4 rounded-lg shadow-sm transition">
-                            <i class="fa-regular fa-copy mr-2"></i> 클립보드 복사
+                <!-- Toolbar -->
+                <div class="flex justify-between items-center no-print bg-blue-50 p-4 rounded-lg border border-blue-100">
+                    <div class="text-sm text-blue-800 font-bold">
+                        <i class="fa-solid fa-file-signature mr-2"></i>제안서가 생성되었습니다.
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="window.print()" class="bg-white border border-gray-300 text-gray-700 px-3 py-1.5 rounded-lg hover:bg-gray-50 text-sm font-medium shadow-sm transition">
+                            <i class="fa-solid fa-print mr-2"></i>인쇄 / PDF 저장
+                        </button>
+                        <button onclick="copyProposalText()" class="bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700 text-sm font-medium shadow-sm transition">
+                            <i class="fa-regular fa-copy mr-2"></i>내용 복사
                         </button>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                    <h3 class="font-bold text-gray-800 mb-4">도입 예산안 (Estimate)</h3>
-                    <div class="space-y-2 text-sm">
-                        <div class="flex justify-between border-b border-gray-100 pb-2">
-                            <span>하드웨어 공급가 (H/W)</span>
-                            <span class="font-bold" id="propHwCost">0 원</span>
+                <!-- Paper Layout -->
+                <div id="proposal-paper" class="proposal-paper text-gray-800">
+                    <!-- Header -->
+                    <div class="border-b-2 border-gray-100 pb-6 mb-8 flex justify-between items-end">
+                        <div>
+                            <div class="text-blue-600 font-black text-2xl tracking-tight mb-1">Life 2.0 <span class="text-gray-400 font-light">| Solution</span></div>
+                            <div class="text-xs text-gray-400">Smart Indoor Air Quality & ESG Strategy</div>
                         </div>
-                        <div class="flex justify-between border-b border-gray-100 pb-2">
-                            <span>설치 및 시운전비 (10%)</span>
-                            <span class="font-bold" id="propInstallCost">0 원</span>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-gray-800 mb-1">솔루션 도입 제안서</div>
+                            <div class="text-sm text-gray-500" id="propDate">2023. 00. 00</div>
                         </div>
-                        <div class="flex justify-between border-b border-gray-100 pb-2">
-                            <span>IoT 관제 시스템 연동 (Option)</span>
-                            <span class="font-bold text-blue-600">포함 (무상지원)</span>
+                    </div>
+
+                    <!-- Client Info -->
+                    <div class="mb-8 p-4 bg-gray-50 rounded-lg border border-gray-100">
+                        <h3 class="text-sm font-bold text-gray-500 uppercase mb-3">Client Overview</h3>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div>
+                                <div class="text-xs text-gray-400">설치 공간</div>
+                                <div class="font-bold text-lg" id="propSpaceType">-</div>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400">전용 면적</div>
+                                <div class="font-bold text-lg"><span id="propArea">0</span> 평</div>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-400">상주 인원</div>
+                                <div class="font-bold text-lg"><span id="propPeople">0</span> 명</div>
+                            </div>
                         </div>
-                        <div class="flex justify-between pt-2 text-lg font-bold text-gray-900">
-                            <span>총 소요 예산 (Total)</span>
-                            <span id="propTotalCost">0 원</span>
+                    </div>
+
+                    <!-- Proposed Products -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-3">도입 솔루션 구성</h3>
+                        <div id="propProductList" class="space-y-3">
+                            <!-- Dynamic Content -->
                         </div>
+                    </div>
+
+                    <!-- Analysis Summary -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 border-l-4 border-green-500 pl-3">기대 효과 분석</h3>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-700 mb-2 text-sm"><i class="fa-solid fa-wind text-blue-500 mr-2"></i>공기질 개선</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li class="flex justify-between"><span>공기 순환량</span> <span class="font-bold" id="propCadr">0 m³/h</span></li>
+                                    <li class="flex justify-between"><span>천연 가습량</span> <span class="font-bold" id="propHumid">0 ml/h</span></li>
+                                    <li class="flex justify-between"><span>정화 커버리지</span> <span class="font-bold text-blue-600" id="propCoverage">0 %</span></li>
+                                </ul>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-bold text-gray-700 mb-2 text-sm"><i class="fa-solid fa-tree text-green-500 mr-2"></i>ESG 성과</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li class="flex justify-between"><span>연간 탄소 흡수</span> <span class="font-bold" id="propCarbon">0 kg</span></li>
+                                    <li class="flex justify-between"><span>소나무 식재 효과</span> <span class="font-bold text-green-600" id="propTrees">0 그루</span></li>
+                                    <li class="flex justify-between"><span>K-Taxonomy</span> <span class="font-bold">적합 판정</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quotation -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4 border-l-4 border-gray-500 pl-3">예상 견적 (Estimate)</h3>
+                        <table class="w-full text-sm text-left border border-gray-200">
+                            <thead class="bg-gray-100 text-gray-700">
+                                <tr>
+                                    <th class="px-4 py-2">구분</th>
+                                    <th class="px-4 py-2 text-right">금액</th>
+                                    <th class="px-4 py-2 text-right">비고</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-4 py-3">HW 총 공급가액</td>
+                                    <td class="px-4 py-3 text-right font-medium" id="docHwCost">0</td>
+                                    <td class="px-4 py-3 text-right text-gray-400">VAT 별도</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3">설치 및 시운전비</td>
+                                    <td class="px-4 py-3 text-right font-medium" id="docInstallCost">0</td>
+                                    <td class="px-4 py-3 text-right text-gray-400">총액의 10%</td>
+                                </tr>
+                                <tr class="bg-blue-50">
+                                    <td class="px-4 py-3 font-bold text-blue-900">총 합계 (Total)</td>
+                                    <td class="px-4 py-3 text-right font-bold text-blue-900 text-lg" id="docTotalCost">0</td>
+                                    <td class="px-4 py-3 text-right text-blue-800 text-xs">설치포함/VAT별도</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="text-xs text-gray-400 mt-2 text-right">
+                            * 본 견적은 예상 시뮬레이션 결과이며, 현장 실측 후 변동될 수 있습니다.
+                        </p>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="mt-12 pt-6 border-t border-gray-200 text-center">
+                        <p class="text-sm font-bold text-gray-800 mb-1">Life 2.0 Solution Team</p>
+                        <p class="text-xs text-gray-400">서울시 강남구 테헤란로 123 | Tel: 02-1234-5678 | Email: contact@life2.0.com</p>
                     </div>
                 </div>
             </div>
@@ -579,7 +697,7 @@
             const activeBtn = document.getElementById('tab-' + tabId);
             activeBtn.className = "flex-1 py-2.5 text-sm font-bold rounded-lg shadow bg-white text-blue-700 transition";
 
-            if (tabId === 'proposal') generateProposalText();
+            if (tabId === 'proposal') renderProposal();
         }
 
         // --- Core Calculations ---
@@ -629,12 +747,6 @@
             document.getElementById('oxygenStat').textContent = o2People + " 명분";
 
             updateChart(stats.coveragePercent);
-            
-            // Proposal Preview Data
-            document.getElementById('propHwCost').textContent = stats.totalCost.toLocaleString() + " 원";
-            const installCost = stats.totalCost * 0.1;
-            document.getElementById('propInstallCost').textContent = installCost.toLocaleString() + " 원";
-            document.getElementById('propTotalCost').textContent = (stats.totalCost + installCost).toLocaleString() + " 원";
         }
 
         function updateChart(coverage) {
@@ -695,57 +807,78 @@
             });
         }
 
-        function generateProposalText() {
+        function renderProposal() {
             const stats = calculateStats();
             const spaceName = document.querySelector('#spaceType option:checked').text;
+            const today = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            // 1. Basic Info
+            document.getElementById('propDate').textContent = today;
+            document.getElementById('propSpaceType').textContent = spaceName;
+            document.getElementById('propArea').textContent = state.area;
+            document.getElementById('propPeople').textContent = state.people;
+
+            // 2. Product List
+            const listContainer = document.getElementById('propProductList');
+            listContainer.innerHTML = ''; // Clear previous
             
-            const text = `
-[Life 2.0 스마트 에코 에어 솔루션 도입 제안서]
-
-1. 제안 개요
-   - 대상 공간: ${spaceName}
-   - 적용 면적: ${state.area}평 (${Math.round(state.area*3.3)}㎡)
-   - 상주 인원: ${state.people}명
-
-2. 솔루션 구성 (H/W)
-   - 이끼 타워 (Active Bio Filter): ${state.counts.tower}대
-   - 이끼 정원 (Lobby Type): ${state.counts.garden}대
-   - 이끼 액자 (Wall Type): ${state.counts.frame}대
-
-3. 기대 효과 (Analysis)
-   [공기질 개선]
-   - 예상 공기 순환량: ${stats.totalCADR.toLocaleString()} m³/h
-   - 공간 정화 커버리지: ${stats.coveragePercent}% 달성
-   - 천연 가습 효과: 시간당 ${stats.totalHumid.toLocaleString()}ml 수분 공급
-
-   [ESG 및 탄소 성과]
-   - 연간 탄소 저감량: ${stats.totalTrees.toFixed(1)}그루의 35년생 소나무 식재 효과
-   - K-Taxonomy(한국형 녹색분류체계) 적합 기술 적용
-   - 친환경 사무공간(Green Office) 구현을 통한 임직원 복지 향상
-
-4. 소요 예산 (Estimate)
-   - 총 공급가액: ${(stats.totalCost * 1.1).toLocaleString()} 원 (VAT 별도 / 설치비 포함)
-   - 유지보수: 설치 후 1년 무상 보증 (이후 멤버십 전환 가능)
-
-5. 특이 사항
-   - IoT 센서 연동을 통한 실시간 공기질 모니터링 무상 지원
-   - 타비오(TABIO) 기술 제휴 Active Bio Filter 시스템 적용
-
-귀 기관의 ESG 경영 실천과 쾌적한 환경 조성을 위해 위와 같이 제안합니다.
-            `.trim();
+            // Sort to show products with count > 0 first
+            const productEntries = Object.entries(state.counts).filter(([key, count]) => count > 0);
             
-            document.getElementById('proposalText').value = text;
+            if (productEntries.length === 0) {
+                listContainer.innerHTML = '<p class="text-gray-400 italic">선택된 솔루션이 없습니다.</p>';
+            } else {
+                productEntries.forEach(([key, count]) => {
+                    const p = products[key];
+                    const subTotal = p.price * count;
+                    const html = `
+                        <div class="flex justify-between items-center border-b border-gray-100 pb-2">
+                            <div>
+                                <div class="font-bold text-gray-700">${p.name}</div>
+                                <div class="text-xs text-gray-500">수량: ${count}대</div>
+                            </div>
+                            <div class="font-bold text-gray-800">${subTotal.toLocaleString()} 원</div>
+                        </div>
+                    `;
+                    listContainer.innerHTML += html;
+                });
+            }
+
+            // 3. Stats
+            document.getElementById('propCadr').textContent = stats.totalCADR.toLocaleString() + ' m³/h';
+            document.getElementById('propHumid').textContent = stats.totalHumid.toLocaleString() + ' ml/h';
+            document.getElementById('propCoverage').textContent = stats.coveragePercent + ' %';
+            document.getElementById('propCarbon').textContent = (stats.totalTrees * 6.6).toFixed(1) + ' kg/년';
+            document.getElementById('propTrees').textContent = stats.totalTrees.toFixed(1) + ' 그루';
+
+            // 4. Cost
+            const installCost = stats.totalCost * 0.1;
+            document.getElementById('docHwCost').textContent = stats.totalCost.toLocaleString() + ' 원';
+            document.getElementById('docInstallCost').textContent = installCost.toLocaleString() + ' 원';
+            document.getElementById('docTotalCost').textContent = (stats.totalCost + installCost).toLocaleString() + ' 원';
         }
 
         function generateProposal() {
             switchTab('proposal');
         }
 
-        function copyProposal() {
-            const copyText = document.getElementById("proposalText");
-            copyText.select();
-            document.execCommand("copy");
-            alert("제안서 내용이 클립보드에 복사되었습니다.");
+        function copyProposalText() {
+            // Get the text content of the paper div
+            const paper = document.getElementById("proposal-paper");
+            const text = paper.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert("제안서 내용이 텍스트로 복사되었습니다.");
+            }).catch(err => {
+                // Fallback for older browsers
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textArea);
+                alert("제안서 내용이 텍스트로 복사되었습니다.");
+            });
         }
     </script>
 </body>
