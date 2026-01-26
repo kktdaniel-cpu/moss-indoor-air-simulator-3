@@ -624,6 +624,15 @@
                 frame: 5
             }
         };
+        
+        // 공간 유형별 프리셋 정의
+        const spacePresets = {
+            office: { area: 30, people: 10 },
+            lobby: { area: 100, people: 50 }, // 로비는 넓고 사람이 많음
+            school: { area: 20, people: 25 }, // 교실 1개 기준, 밀집도 높음
+            hospital: { area: 60, people: 30 }, // 대기실 등
+            lounge: { area: 40, people: 15 }  // 여유로운 공간
+        };
 
         let airChart = null;
 
@@ -635,7 +644,26 @@
 
         function initEvents() {
             document.getElementById('spaceType').addEventListener('change', (e) => {
-                state.spaceType = e.target.value;
+                const newType = e.target.value;
+                state.spaceType = newType;
+                
+                // 프리셋 적용 로직
+                if(spacePresets[newType]) {
+                    const preset = spacePresets[newType];
+                    
+                    // State 업데이트
+                    state.area = preset.area;
+                    state.people = preset.people;
+                    
+                    // UI 업데이트 (슬라이더 및 텍스트)
+                    document.getElementById('areaInput').value = preset.area;
+                    document.getElementById('areaDisplay').textContent = preset.area;
+                    document.getElementById('areaM2Display').textContent = Math.round(preset.area * 3.3);
+                    
+                    document.getElementById('peopleInput').value = preset.people;
+                    document.getElementById('peopleDisplay').textContent = preset.people;
+                }
+
                 recommendMix();
             });
             document.getElementById('areaInput').addEventListener('input', (e) => {
@@ -670,12 +698,23 @@
         }
 
         function recommendMix() {
-            // Simple recommendation logic based on area
-            // 1 Tower per 20 pyeong, 1 Frame per 5 pyeong
             const area = state.area;
+            
+            // 기본 로직: 20평당 타워 1대, 5평당 액자 1개
             state.counts.tower = Math.ceil(area / 20);
             state.counts.frame = Math.ceil(area / 5);
-            state.counts.garden = area > 50 ? 1 : 0; // Garden for large spaces
+            
+            // 공간별 특화 로직
+            if (state.spaceType === 'lobby') {
+                // 로비는 상징적으로 가든 필수, 타워는 보조
+                state.counts.garden = Math.max(1, Math.ceil(area / 100)); 
+            } else if (state.spaceType === 'lounge') {
+                // 라운지는 고급스럽게 가든 추가 고려 (40평 이상일 때)
+                state.counts.garden = area > 40 ? 1 : 0;
+            } else {
+                // 일반적인 경우 대형 평수일 때만 가든 고려
+                state.counts.garden = area > 80 ? 1 : 0;
+            }
 
             // Update UI
             ['tower', 'garden', 'frame'].forEach(type => {
