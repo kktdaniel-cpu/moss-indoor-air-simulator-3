@@ -13,7 +13,7 @@
         
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #F8FAFC; /* Cool Gray/Blue tint for Air feeling */
+            background-color: #F8FAFC; 
             color: #334155;
         }
 
@@ -45,7 +45,7 @@
         }
         .product-card:hover {
             transform: translateY(-2px);
-            border-color: #3B82F6; /* Blue border on hover */
+            border-color: #3B82F6;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
         .product-card.selected {
@@ -146,7 +146,6 @@
 </head>
 <body class="antialiased">
 
-    <!-- Top Navigation -->
     <nav class="bg-white border-b border-gray-200 fixed w-full z-20 top-0 shadow-sm no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
@@ -165,13 +164,10 @@
         </div>
     </nav>
 
-    <!-- Main Container -->
     <div class="pt-20 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-        <!-- Left Panel: Configuration (4 Cols) -->
         <div class="lg:col-span-4 space-y-5 no-print">
             
-            <!-- Step 1: Space Setting -->
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
                 <h2 class="text-lg font-bold text-gray-800 mb-4 section-header">1. 공간 설정 (Space)</h2>
                 
@@ -209,7 +205,6 @@
                 </div>
             </div>
 
-            <!-- Step 2: Product Mix -->
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-lg font-bold text-gray-800 section-header mb-0">2. 솔루션 구성</h2>
@@ -217,7 +212,6 @@
                 </div>
 
                 <div class="space-y-4">
-                    <!-- Product 1: Moss Tower -->
                     <div class="product-card bg-gray-50 rounded-lg p-3 relative">
                         <div class="flex justify-between items-start mb-2">
                             <div>
@@ -227,7 +221,7 @@
                             <span class="text-xs font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded">Flagship</span>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold text-gray-700">110만원</span>
+                            <span class="text-sm font-bold text-gray-700">150만원</span>
                             <div class="flex items-center space-x-2">
                                 <button onclick="adjustCount('tower', -1)" class="w-6 h-6 rounded-full bg-white border shadow text-gray-600 hover:bg-gray-100">-</button>
                                 <span id="count-tower" class="w-8 text-center font-bold text-blue-600">1</span>
@@ -236,7 +230,6 @@
                         </div>
                     </div>
 
-                    <!-- Product 2: Moss Garden -->
                     <div class="product-card bg-gray-50 rounded-lg p-3 relative">
                         <div class="flex justify-between items-start mb-2">
                             <div>
@@ -245,7 +238,7 @@
                             </div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold text-gray-700">350만원</span>
+                            <span class="text-sm font-bold text-gray-700">500만원</span>
                             <div class="flex items-center space-x-2">
                                 <button onclick="adjustCount('garden', -1)" class="w-6 h-6 rounded-full bg-white border shadow text-gray-600 hover:bg-gray-100">-</button>
                                 <span id="count-garden" class="w-8 text-center font-bold text-blue-600">0</span>
@@ -254,672 +247,4 @@
                         </div>
                     </div>
 
-                    <!-- Product 3: Moss Frame -->
-                    <div class="product-card bg-gray-50 rounded-lg p-3 relative">
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <h3 class="font-bold text-gray-800">이끼 액자 (Wall)</h3>
-                                <p class="text-xs text-gray-500">벽면형 / 300x600mm</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm font-bold text-gray-700">7만원</span>
-                            <div class="flex items-center space-x-2">
-                                <button onclick="adjustCount('frame', -1)" class="w-6 h-6 rounded-full bg-white border shadow text-gray-600 hover:bg-gray-100">-</button>
-                                <span id="count-frame" class="w-8 text-center font-bold text-blue-600">5</span>
-                                <button onclick="adjustCount('frame', 1)" class="w-6 h-6 rounded-full bg-white border shadow text-gray-600 hover:bg-gray-100">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Real-time Cost Summary -->
-                <div class="mt-5 pt-4 border-t border-gray-200">
-                    <div class="flex justify-between items-center text-sm mb-1">
-                        <span class="text-gray-500">총 도입 예상 비용</span>
-                        <span class="font-bold text-lg text-gray-900" id="totalCostDisplay">1,450,000 원</span>
-                    </div>
-                    <p class="text-xs text-right text-gray-400">* VAT 별도 / 설치비 포함</p>
-                </div>
-            </div>
-
-            <button onclick="generateProposal()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition transform hover:-translate-y-0.5">
-                <i class="fa-solid fa-file-invoice mr-2"></i> 제안서 생성하기
-            </button>
-        </div>
-
-        <!-- Right Panel: Dashboard (8 Cols) -->
-        <div class="lg:col-span-8">
-            
-            <!-- Dashboard Tabs -->
-            <div class="tab-buttons flex space-x-1 bg-gray-100 p-1 rounded-xl mb-6 no-print">
-                <button onclick="switchTab('impact')" id="tab-impact" class="flex-1 py-2.5 text-sm font-bold rounded-lg shadow bg-white text-blue-700 transition">
-                    <i class="fa-solid fa-lungs mr-2"></i>공기질 개선 효과
-                </button>
-                <button onclick="switchTab('esg')" id="tab-esg" class="flex-1 py-2.5 text-sm font-bold rounded-lg text-gray-500 hover:text-gray-700 transition">
-                    <i class="fa-solid fa-leaf mr-2"></i>ESG & 탄소 성과
-                </button>
-                <button onclick="switchTab('proposal')" id="tab-proposal" class="flex-1 py-2.5 text-sm font-bold rounded-lg text-gray-500 hover:text-gray-700 transition">
-                    <i class="fa-solid fa-bullhorn mr-2"></i>제안 메시지
-                </button>
-            </div>
-
-            <!-- Tab 1: Air Quality Impact -->
-            <div id="content-impact" class="tab-content active space-y-6">
-                <!-- Summary Stats -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-blue-50 rounded-xl p-4 border border-blue-100">
-                        <div class="text-xs text-blue-500 font-bold uppercase mb-1">청정 공기 순환량</div>
-                        <div class="text-2xl font-bold text-gray-800" id="cadrDisplay">0 m³/h</div>
-                        <div class="text-xs text-gray-500 mt-1">Active Bio Filter 가동 시</div>
-                    </div>
-                    <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
-                        <div class="text-xs text-emerald-500 font-bold uppercase mb-1">천연 가습 효과</div>
-                        <div class="text-2xl font-bold text-gray-800" id="humidDisplay">0 ml/h</div>
-                        <div class="text-xs text-gray-500 mt-1">자연 기화식 가습</div>
-                    </div>
-                    <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100">
-                        <div class="text-xs text-indigo-500 font-bold uppercase mb-1">공간 커버리지</div>
-                        <div class="text-2xl font-bold text-gray-800" id="coverageDisplay">0 %</div>
-                        <div class="text-xs text-gray-500 mt-1">설정 면적 대비 정화 범위</div>
-                    </div>
-                </div>
-
-                <!-- Air Quality Simulation Chart -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                    <h3 class="text-md font-bold text-gray-800 mb-4 flex items-center">
-                        <i class="fa-solid fa-chart-line text-blue-500 mr-2"></i> 미세먼지(PM2.5) & CO2 저감 시뮬레이션
-                    </h3>
-                    <div class="chart-container">
-                        <canvas id="airQualityChart"></canvas>
-                    </div>
-                    <p class="text-center text-xs text-gray-400 mt-2">
-                        * 설치 후 24시간 가동 시 예상 변화 추이 (밀폐된 공간 기준)
-                    </p>
-                </div>
-
-                <!-- Health Benefits -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-white rounded-xl p-5 border border-gray-200">
-                        <h4 class="font-bold text-gray-800 mb-3 text-sm">Active Bio Filter 기술</h4>
-                        <ul class="space-y-2 text-sm text-gray-600">
-                            <li class="flex items-start"><i class="fa-solid fa-circle-check text-blue-400 mt-1 mr-2 text-xs"></i> <span>이끼와 팬(Fan)을 결합한 흡입식 정화</span></li>
-                            <li class="flex items-start"><i class="fa-solid fa-circle-check text-blue-400 mt-1 mr-2 text-xs"></i> <span>미세먼지 흡착 및 VOCs(휘발성유기화합물) 제거</span></li>
-                            <li class="flex items-start"><i class="fa-solid fa-circle-check text-blue-400 mt-1 mr-2 text-xs"></i> <span>바이오 필름에 의한 반영구적 필터링</span></li>
-                        </ul>
-                    </div>
-                    <div class="bg-white rounded-xl p-5 border border-gray-200">
-                        <h4 class="font-bold text-gray-800 mb-3 text-sm">심리적/신체적 효과</h4>
-                        <ul class="space-y-2 text-sm text-gray-600">
-                            <li class="flex items-start"><i class="fa-solid fa-heart-pulse text-red-400 mt-1 mr-2 text-xs"></i> <span>눈의 피로도 감소 (Green View 효과)</span></li>
-                            <li class="flex items-start"><i class="fa-solid fa-heart-pulse text-red-400 mt-1 mr-2 text-xs"></i> <span>실내 습도 조절로 호흡기 건강 증진</span></li>
-                            <li class="flex items-start"><i class="fa-solid fa-heart-pulse text-red-400 mt-1 mr-2 text-xs"></i> <span>업무 스트레스 완화 및 집중력 향상</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tab 2: ESG & Carbon -->
-            <div id="content-esg" class="tab-content space-y-6">
-                <!-- Hero Carbon Stat -->
-                <div class="bg-gradient-to-br from-green-600 to-teal-700 rounded-xl shadow-lg p-6 text-white relative overflow-hidden">
-                    <div class="absolute right-0 top-0 opacity-10 transform translate-x-10 -translate-y-10">
-                        <i class="fa-solid fa-tree text-9xl"></i>
-                    </div>
-                    <div class="relative z-10">
-                        <h3 class="text-lg font-bold opacity-90 mb-1">연간 탄소 저감 효과 (Carbon Offset)</h3>
-                        <div class="flex items-end">
-                            <span class="text-5xl font-bold" id="treeEquivalent">0</span>
-                            <span class="text-xl mb-2 ml-2">그루</span>
-                        </div>
-                        <p class="text-sm opacity-80 mt-2">
-                            35년생 소나무 <span class="font-bold text-white">42평 숲</span>을 실내에 조성한 것과 동일합니다.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Analysis Cards -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                        <h4 class="font-bold text-gray-800 mb-4 flex items-center">
-                            <i class="fa-solid fa-leaf text-green-500 mr-2"></i> K-택소노미(K-Taxonomy) 적합성
-                        </h4>
-                        <div class="space-y-4">
-                            <div class="flex items-center justify-between text-sm">
-                                <span class="text-gray-600">온실가스 감축</span>
-                                <span class="px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs font-bold">적합</span>
-                            </div>
-                            <div class="w-full bg-gray-100 rounded-full h-2">
-                                <div class="bg-green-500 h-2 rounded-full" style="width: 100%"></div>
-                            </div>
-                            
-                            <div class="flex items-center justify-between text-sm">
-                                <span class="text-gray-600">오염 방지 및 통제</span>
-                                <span class="px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs font-bold">적합</span>
-                            </div>
-                            <div class="w-full bg-gray-100 rounded-full h-2">
-                                <div class="bg-green-500 h-2 rounded-full" style="width: 100%"></div>
-                            </div>
-
-                            <p class="text-xs text-gray-400 mt-2">
-                                * 환경부 한국형 녹색분류체계 기준 준수 (실내공기질 관리법 연계)
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                        <h4 class="font-bold text-gray-800 mb-4 flex items-center">
-                            <i class="fa-solid fa-award text-yellow-500 mr-2"></i> ESG 경영 지표 기여
-                        </h4>
-                        <ul class="space-y-3 text-sm text-gray-600">
-                            <li class="flex">
-                                <span class="font-bold w-8 text-green-600">E</span>
-                                <span>탄소 중립 실천 및 에너지 효율화 (냉난방 부하 저감)</span>
-                            </li>
-                            <li class="flex">
-                                <span class="font-bold w-8 text-blue-600">S</span>
-                                <span>임직원 근무 환경 개선 (건강권 보장) 및 복지 향상</span>
-                            </li>
-                            <li class="flex">
-                                <span class="font-bold w-8 text-purple-600">G</span>
-                                <span>친환경 구매 및 녹색 조달 실적 확보</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Detailed Specs Table -->
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                    <table class="w-full text-sm text-left text-gray-500">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3">항목</th>
-                                <th class="px-6 py-3">산출 근거 (Source)</th>
-                                <th class="px-6 py-3 text-right">수치</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="bg-white border-b">
-                                <td class="px-6 py-4 font-medium text-gray-900">총 이끼 표면적</td>
-                                <td class="px-6 py-4">도입 장비 이끼 패널 면적 합계</td>
-                                <td class="px-6 py-4 text-right" id="totalMossArea">0 m²</td>
-                            </tr>
-                            <tr class="bg-white border-b">
-                                <td class="px-6 py-4 font-medium text-gray-900">연간 탄소 흡수량</td>
-                                <td class="px-6 py-4">35년생 소나무 대비 흡수율 환산</td>
-                                <td class="px-6 py-4 text-right" id="totalCarbonKg">0 kg</td>
-                            </tr>
-                            <tr class="bg-white">
-                                <td class="px-6 py-4 font-medium text-gray-900">산소 발생량</td>
-                                <td class="px-6 py-4">성인 1일 필요 산소량 기준 비교</td>
-                                <td class="px-6 py-4 text-right" id="oxygenStat">0 명분</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Tab 3: Proposal (Enhanced) -->
-            <div id="content-proposal" class="tab-content space-y-6">
-                <!-- Toolbar -->
-                <div class="flex justify-between items-center no-print bg-blue-50 p-4 rounded-lg border border-blue-100">
-                    <div class="text-sm text-blue-800 font-bold">
-                        <i class="fa-solid fa-file-signature mr-2"></i>제안서가 생성되었습니다.
-                    </div>
-                    <div class="flex space-x-2">
-                        <button onclick="window.print()" class="bg-white border border-gray-300 text-gray-700 px-3 py-1.5 rounded-lg hover:bg-gray-50 text-sm font-medium shadow-sm transition">
-                            <i class="fa-solid fa-print mr-2"></i>인쇄 / PDF 저장
-                        </button>
-                        <button onclick="copyProposalText()" class="bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700 text-sm font-medium shadow-sm transition">
-                            <i class="fa-regular fa-copy mr-2"></i>내용 복사
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Paper Layout -->
-                <div id="proposal-paper" class="proposal-paper text-gray-800">
-                    <!-- Header -->
-                    <div class="border-b-2 border-gray-100 pb-6 mb-8 flex justify-between items-end">
-                        <div>
-                            <div class="text-blue-600 font-black text-2xl tracking-tight mb-1">Life 2.0 <span class="text-gray-400 font-light">| Solution</span></div>
-                            <div class="text-xs text-gray-400">Smart Indoor Air Quality & ESG Strategy</div>
-                        </div>
-                        <div class="text-right">
-                            <div class="text-2xl font-bold text-gray-800 mb-1">솔루션 도입 제안서</div>
-                            <div class="text-sm text-gray-500" id="propDate">2023. 00. 00</div>
-                        </div>
-                    </div>
-
-                    <!-- Client Info -->
-                    <div class="mb-8 p-4 bg-gray-50 rounded-lg border border-gray-100">
-                        <h3 class="text-sm font-bold text-gray-500 uppercase mb-3">Client Overview</h3>
-                        <div class="grid grid-cols-3 gap-4">
-                            <div>
-                                <div class="text-xs text-gray-400">설치 공간</div>
-                                <div class="font-bold text-lg" id="propSpaceType">-</div>
-                            </div>
-                            <div>
-                                <div class="text-xs text-gray-400">전용 면적</div>
-                                <div class="font-bold text-lg"><span id="propArea">0</span> 평</div>
-                            </div>
-                            <div>
-                                <div class="text-xs text-gray-400">상주 인원</div>
-                                <div class="font-bold text-lg"><span id="propPeople">0</span> 명</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Proposed Products -->
-                    <div class="mb-8">
-                        <h3 class="text-lg font-bold text-gray-800 mb-4 border-l-4 border-blue-500 pl-3">도입 솔루션 구성</h3>
-                        <div id="propProductList" class="space-y-3">
-                            <!-- Dynamic Content -->
-                        </div>
-                    </div>
-
-                    <!-- Analysis Summary -->
-                    <div class="mb-8">
-                        <h3 class="text-lg font-bold text-gray-800 mb-4 border-l-4 border-green-500 pl-3">기대 효과 분석</h3>
-                        <div class="grid grid-cols-2 gap-6">
-                            <div class="border border-gray-200 rounded-lg p-4">
-                                <h4 class="font-bold text-gray-700 mb-2 text-sm"><i class="fa-solid fa-wind text-blue-500 mr-2"></i>공기질 개선</h4>
-                                <ul class="text-sm text-gray-600 space-y-1">
-                                    <li class="flex justify-between"><span>공기 순환량</span> <span class="font-bold" id="propCadr">0 m³/h</span></li>
-                                    <li class="flex justify-between"><span>천연 가습량</span> <span class="font-bold" id="propHumid">0 ml/h</span></li>
-                                    <li class="flex justify-between"><span>정화 커버리지</span> <span class="font-bold text-blue-600" id="propCoverage">0 %</span></li>
-                                </ul>
-                            </div>
-                            <div class="border border-gray-200 rounded-lg p-4">
-                                <h4 class="font-bold text-gray-700 mb-2 text-sm"><i class="fa-solid fa-tree text-green-500 mr-2"></i>ESG 성과</h4>
-                                <ul class="text-sm text-gray-600 space-y-1">
-                                    <li class="flex justify-between"><span>연간 탄소 흡수</span> <span class="font-bold" id="propCarbon">0 kg</span></li>
-                                    <li class="flex justify-between"><span>소나무 식재 효과</span> <span class="font-bold text-green-600" id="propTrees">0 그루</span></li>
-                                    <li class="flex justify-between"><span>K-Taxonomy</span> <span class="font-bold">적합 판정</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quotation -->
-                    <div class="mb-8">
-                        <h3 class="text-lg font-bold text-gray-800 mb-4 border-l-4 border-gray-500 pl-3">예상 견적 (Estimate)</h3>
-                        <table class="w-full text-sm text-left border border-gray-200">
-                            <thead class="bg-gray-100 text-gray-700">
-                                <tr>
-                                    <th class="px-4 py-2">구분</th>
-                                    <th class="px-4 py-2 text-right">금액</th>
-                                    <th class="px-4 py-2 text-right">비고</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200">
-                                <tr>
-                                    <td class="px-4 py-3">HW 총 공급가액</td>
-                                    <td class="px-4 py-3 text-right font-medium" id="docHwCost">0</td>
-                                    <td class="px-4 py-3 text-right text-gray-400">VAT 별도</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-4 py-3">설치 및 시운전비</td>
-                                    <td class="px-4 py-3 text-right font-medium" id="docInstallCost">0</td>
-                                    <td class="px-4 py-3 text-right text-gray-400">총액의 10%</td>
-                                </tr>
-                                <tr class="bg-blue-50">
-                                    <td class="px-4 py-3 font-bold text-blue-900">총 합계 (Total)</td>
-                                    <td class="px-4 py-3 text-right font-bold text-blue-900 text-lg" id="docTotalCost">0</td>
-                                    <td class="px-4 py-3 text-right text-blue-800 text-xs">설치포함/VAT별도</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <p class="text-xs text-gray-400 mt-2 text-right">
-                            * 본 견적은 예상 시뮬레이션 결과이며, 현장 실측 후 변동될 수 있습니다.
-                        </p>
-                    </div>
-
-                    <!-- Footer -->
-                    <div class="mt-12 pt-6 border-t border-gray-200 text-center">
-                        <p class="text-sm font-bold text-gray-800 mb-1">Life 2.0 Solution Team</p>
-                        <p class="text-xs text-gray-400">서울시 중구 삼일대로 363, 장교빌딩 2208호 | Tel: 010-5567-6401| Email: kktdaniel@lpp20.com</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <script>
-        // --- Data & State ---
-        const products = {
-            tower: { 
-                name: "이끼 타워 (Forestay)", 
-                price: 1100000, 
-                area: 0.9, // approx m2 of moss
-                cadr: 150, // m3/h estimate
-                humid: 200, // ml/h estimate
-                carbonFactor: 0.7 // trees equivalent
-            },
-            garden: { 
-                name: "이끼 정원 (Large)", 
-                price: 3500000, 
-                area: 1.44, 
-                cadr: 0, // passive
-                humid: 300, 
-                carbonFactor: 1.6 
-            },
-            frame: { 
-                name: "이끼 액자 (Wall)", 
-                price: 70000, 
-                area: 0.18, 
-                cadr: 0, // passive
-                humid: 30, 
-                carbonFactor: 0.14 
-            }
-        };
-
-        const state = {
-            spaceType: 'office',
-            area: 30, // pyeong
-            people: 10,
-            counts: {
-                tower: 1,
-                garden: 0,
-                frame: 5
-            }
-        };
-        
-        // 공간 유형별 프리셋 정의
-        const spacePresets = {
-            office: { area: 30, people: 10 },
-            lobby: { area: 100, people: 50 }, // 로비는 넓고 사람이 많음
-            school: { area: 20, people: 25 }, // 교실 1개 기준, 밀집도 높음
-            hospital: { area: 60, people: 30 }, // 대기실 등
-            lounge: { area: 40, people: 15 }  // 여유로운 공간
-        };
-
-        let airChart = null;
-
-        // --- Initialization ---
-        document.addEventListener('DOMContentLoaded', () => {
-            initEvents();
-            updateAll();
-        });
-
-        function initEvents() {
-            document.getElementById('spaceType').addEventListener('change', (e) => {
-                const newType = e.target.value;
-                state.spaceType = newType;
-                
-                // 프리셋 적용 로직
-                if(spacePresets[newType]) {
-                    const preset = spacePresets[newType];
-                    
-                    // State 업데이트
-                    state.area = preset.area;
-                    state.people = preset.people;
-                    
-                    // UI 업데이트 (슬라이더 및 텍스트)
-                    document.getElementById('areaInput').value = preset.area;
-                    document.getElementById('areaDisplay').textContent = preset.area;
-                    document.getElementById('areaM2Display').textContent = Math.round(preset.area * 3.3);
-                    
-                    document.getElementById('peopleInput').value = preset.people;
-                    document.getElementById('peopleDisplay').textContent = preset.people;
-                }
-
-                recommendMix();
-            });
-            document.getElementById('areaInput').addEventListener('input', (e) => {
-                state.area = parseInt(e.target.value);
-                document.getElementById('areaDisplay').textContent = state.area;
-                document.getElementById('areaM2Display').textContent = Math.round(state.area * 3.3);
-                recommendMix(); // optional: auto-adjust or just update calculations
-                updateAll();
-            });
-            document.getElementById('peopleInput').addEventListener('input', (e) => {
-                state.people = parseInt(e.target.value);
-                document.getElementById('peopleDisplay').textContent = state.people;
-                updateAll();
-            });
-        }
-
-        function adjustCount(type, delta) {
-            const newCount = state.counts[type] + delta;
-            if(newCount >= 0) {
-                state.counts[type] = newCount;
-                document.getElementById(`count-${type}`).textContent = newCount;
-                updateAll();
-            }
-        }
-
-        function resetProducts() {
-            state.counts = { tower: 0, garden: 0, frame: 0 };
-            ['tower', 'garden', 'frame'].forEach(type => {
-                document.getElementById(`count-${type}`).textContent = 0;
-            });
-            updateAll();
-        }
-
-        function recommendMix() {
-            const area = state.area;
-            
-            // 기본 로직: 20평당 타워 1대, 5평당 액자 1개
-            state.counts.tower = Math.ceil(area / 20);
-            state.counts.frame = Math.ceil(area / 5);
-            
-            // 공간별 특화 로직
-            if (state.spaceType === 'lobby') {
-                // 로비는 상징적으로 가든 필수, 타워는 보조
-                state.counts.garden = Math.max(1, Math.ceil(area / 100)); 
-            } else if (state.spaceType === 'lounge') {
-                // 라운지는 고급스럽게 가든 추가 고려 (40평 이상일 때)
-                state.counts.garden = area > 40 ? 1 : 0;
-            } else {
-                // 일반적인 경우 대형 평수일 때만 가든 고려
-                state.counts.garden = area > 80 ? 1 : 0;
-            }
-
-            // Update UI
-            ['tower', 'garden', 'frame'].forEach(type => {
-                document.getElementById(`count-${type}`).textContent = state.counts[type];
-            });
-            updateAll();
-        }
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.getElementById('content-' + tabId).classList.add('active');
-            
-            // Reset button styles
-            ['impact', 'esg', 'proposal'].forEach(id => {
-                const btn = document.getElementById('tab-' + id);
-                btn.className = "flex-1 py-2.5 text-sm font-bold rounded-lg text-gray-500 hover:text-gray-700 transition";
-            });
-            
-            const activeBtn = document.getElementById('tab-' + tabId);
-            activeBtn.className = "flex-1 py-2.5 text-sm font-bold rounded-lg shadow bg-white text-blue-700 transition";
-
-            if (tabId === 'proposal') renderProposal();
-        }
-
-        // --- Core Calculations ---
-        function calculateStats() {
-            let totalCost = 0;
-            let totalCADR = 0;
-            let totalHumid = 0;
-            let totalTrees = 0;
-            let totalMossArea = 0;
-
-            for(const [type, count] of Object.entries(state.counts)) {
-                const p = products[type];
-                totalCost += p.price * count;
-                totalCADR += p.cadr * count;
-                totalHumid += p.humid * count;
-                totalTrees += p.carbonFactor * count;
-                totalMossArea += p.area * count;
-            }
-
-            // Area coverage calc (Assuming 1 m3/h cleans ~0.1 m2 effectively in real world mixed use)
-            // Or simpler: Tower covers 15 pyeong, Frame covers 1 pyeong
-            const coveredPyeong = (state.counts.tower * 15) + (state.counts.garden * 5) + (state.counts.frame * 1);
-            const coveragePercent = Math.min(Math.round((coveredPyeong / state.area) * 100), 100);
-
-            return { totalCost, totalCADR, totalHumid, totalTrees, totalMossArea, coveragePercent };
-        }
-
-        function updateAll() {
-            const stats = calculateStats();
-
-            // Left Panel
-            document.getElementById('totalCostDisplay').textContent = stats.totalCost.toLocaleString() + " 원";
-
-            // Tab 1: Impact
-            document.getElementById('cadrDisplay').textContent = stats.totalCADR.toLocaleString() + " m³/h";
-            document.getElementById('humidDisplay').textContent = stats.totalHumid.toLocaleString() + " ml/h";
-            document.getElementById('coverageDisplay').textContent = stats.coveragePercent + " %";
-
-            // Tab 2: ESG
-            document.getElementById('treeEquivalent').textContent = stats.totalTrees.toFixed(1);
-            document.getElementById('totalMossArea').textContent = stats.totalMossArea.toFixed(2) + " m²";
-            // 1 Tree absorbs ~6.6kg CO2/yr.
-            const carbonKg = stats.totalTrees * 6.6;
-            document.getElementById('totalCarbonKg').textContent = carbonKg.toFixed(1) + " kg/년";
-            // 1 person needs ~0.84 kg O2/day. Moss area 1m2 ~ 0.5 person? (Rough estimate)
-            const o2People = (stats.totalMossArea * 0.8).toFixed(1);
-            document.getElementById('oxygenStat').textContent = o2People + " 명분";
-
-            updateChart(stats.coveragePercent);
-        }
-
-        function updateChart(coverage) {
-            const ctx = document.getElementById('airQualityChart').getContext('2d');
-            
-            // Simulation Data: PM2.5 levels over 24h
-            // Without system: slight variations. With system: drop significantly.
-            const labels = ['0h', '2h', '4h', '6h', '12h', '18h', '24h'];
-            
-            // Baseline (Bad air)
-            const baseline = [50, 52, 48, 55, 60, 58, 50]; 
-            
-            // Improved (Based on coverage)
-            // If coverage is 100%, drops to <10. If 50%, drops to ~25.
-            const factor = 1 - (coverage / 100 * 0.8); // Max 80% reduction
-            const improved = baseline.map(val => Math.max(10, val * factor));
-
-            if(airChart) airChart.destroy();
-
-            airChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: '설치 전 (기존)',
-                            data: baseline,
-                            borderColor: '#94a3b8',
-                            borderDash: [5, 5],
-                            tension: 0.4,
-                            fill: false
-                        },
-                        {
-                            label: '솔루션 도입 후',
-                            data: improved,
-                            borderColor: '#3B82F6',
-                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                            tension: 0.4,
-                            fill: true
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom' },
-                        tooltip: { mode: 'index', intersect: false }
-                    },
-                    scales: {
-                        y: {
-                            title: { display: true, text: '미세먼지 (㎍/㎥)' },
-                            min: 0,
-                            max: 80
-                        }
-                    }
-                }
-            });
-        }
-
-        function renderProposal() {
-            const stats = calculateStats();
-            const spaceName = document.querySelector('#spaceType option:checked').text;
-            const today = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
-
-            // 1. Basic Info
-            document.getElementById('propDate').textContent = today;
-            document.getElementById('propSpaceType').textContent = spaceName;
-            document.getElementById('propArea').textContent = state.area;
-            document.getElementById('propPeople').textContent = state.people;
-
-            // 2. Product List
-            const listContainer = document.getElementById('propProductList');
-            listContainer.innerHTML = ''; // Clear previous
-            
-            // Sort to show products with count > 0 first
-            const productEntries = Object.entries(state.counts).filter(([key, count]) => count > 0);
-            
-            if (productEntries.length === 0) {
-                listContainer.innerHTML = '<p class="text-gray-400 italic">선택된 솔루션이 없습니다.</p>';
-            } else {
-                productEntries.forEach(([key, count]) => {
-                    const p = products[key];
-                    const subTotal = p.price * count;
-                    const html = `
-                        <div class="flex justify-between items-center border-b border-gray-100 pb-2">
-                            <div>
-                                <div class="font-bold text-gray-700">${p.name}</div>
-                                <div class="text-xs text-gray-500">수량: ${count}대</div>
-                            </div>
-                            <div class="font-bold text-gray-800">${subTotal.toLocaleString()} 원</div>
-                        </div>
-                    `;
-                    listContainer.innerHTML += html;
-                });
-            }
-
-            // 3. Stats
-            document.getElementById('propCadr').textContent = stats.totalCADR.toLocaleString() + ' m³/h';
-            document.getElementById('propHumid').textContent = stats.totalHumid.toLocaleString() + ' ml/h';
-            document.getElementById('propCoverage').textContent = stats.coveragePercent + ' %';
-            document.getElementById('propCarbon').textContent = (stats.totalTrees * 6.6).toFixed(1) + ' kg/년';
-            document.getElementById('propTrees').textContent = stats.totalTrees.toFixed(1) + ' 그루';
-
-            // 4. Cost
-            const installCost = stats.totalCost * 0.1;
-            document.getElementById('docHwCost').textContent = stats.totalCost.toLocaleString() + ' 원';
-            document.getElementById('docInstallCost').textContent = installCost.toLocaleString() + ' 원';
-            document.getElementById('docTotalCost').textContent = (stats.totalCost + installCost).toLocaleString() + ' 원';
-        }
-
-        function generateProposal() {
-            switchTab('proposal');
-        }
-
-        function copyProposalText() {
-            // Get the text content of the paper div
-            const paper = document.getElementById("proposal-paper");
-            const text = paper.innerText;
-            
-            navigator.clipboard.writeText(text).then(() => {
-                alert("제안서 내용이 텍스트로 복사되었습니다.");
-            }).catch(err => {
-                // Fallback for older browsers
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand("copy");
-                document.body.removeChild(textArea);
-                alert("제안서 내용이 텍스트로 복사되었습니다.");
-            });
-        }
-    </script>
-</body>
-</html>
-
+                    <div class="
